@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/public/styles/dasboard.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h1>Admin Dashboard</h1>
+        <button class="logout-btn" onclick="window.location.href = '/logout'">Logout</button>
+    </nav>
+
+    <!-- main content-->
+    <main class="dashboard-container">
+        <h2>User management</h2>
+        <div class="table-controls">
+            <button class="add-user-btn" onclick="openAddUserModal()">Add user</button>
+        </div>
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <>
+                {{#each users}}
+                <tr>
+                    <td>{{@index}}</td>
+                    <td>{{this.email}}</td>
+                    <td>
+                        <button class="edit-btn" onclick="openEditUserModal('{{this._id}}','{{this.email}}')">Edit</button>
+                        <button class="delete-btn" onclick="deleteUser('{{this._id}}')">Delete</button>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

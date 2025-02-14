@@ -1,11 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login Page</title>
-</head>
-<body>
-    <h1>Admin Login Page</h1>
-</body>
-</html>
+   <link rel="stylesheet" href="/styles/adminLogin.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+
+<div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form action="/admin/login" method="post">
+    <input type="text" id="message" name="message" value="{{message}}">
+        <h3>Login Here</h3>
+
+        <label for="username">Username</label>
+        <input type="text" name="email" placeholder="Email or Phone" id="username" required>
+
+        <label for="password">Password</label>
+        <input type="password" name="password" placeholder="Password" id="password" required>
+
+        <button type="submit">Log In</button>
+        <div class="social">
+          <div class="go"><i class="fab fa-google"></i>  Google</div>
+          <div class="fb"><i class="fab fa-facebook"></i>  Facebook</div>
+        </div>
+    </form>
+
+    <script>
+      console.log('hi');
+      document.addEventListener('DOMContentLoaded',function()
+      {
+        document.querySelector('form').addEventListener('submit',validateForm);
+      });
+
+      const message = document.getElementById('message').value;
+
+      if(message)
+      {
+        console.log(message);
+        swal(message);
+        
+      }
+
+      function validateForm(e)
+        {
+          e.preventDefault();
+          console.log('hello');
+          var username = document.getElementById('username').value;
+          var password = document.getElementById('password').value;
+          if(username == "" || password =="")
+          {
+            swal("All the fields are required");
+            return
+          }
+          
+          e.target.submit();
+          return true
+          
+        }
+      
+    </script>
