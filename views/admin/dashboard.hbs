@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="/public/styles/dasboard.css">
+    <link rel="stylesheet" href="/styles/dasboard.css">
 </head>
 <body>
     <nav class="navbar">
         <h1>Admin Dashboard</h1>
-        <button class="logout-btn" onclick="window.location.href = '/logout'">Logout</button>
+        <button class="logout-btn" onclick="window.location.href = '/admin/logout'">Logout</button>
     </nav>
 
     <!-- main content-->
@@ -18,7 +18,8 @@
         <div class="table-controls">
             <button class="add-user-btn" onclick="openAddUserModal()">Add user</button>
         </div>
-        <table class="user-table">
+        <div class="table-wrapper">
+            <table class="user-table">
             <thead>
                 <tr>
                     <th>#</th>
@@ -26,7 +27,7 @@
                     <th>Actions</th>
                 </tr>
             </thead>
-            <>
+            <tbody>
                 {{#each users}}
                 <tr>
                     <td>{{@index}}</td>
@@ -38,7 +39,71 @@
                 </tr>
                 {{/each}}
             </tbody>
-        </table>
+            </table>
+        </div>
+        
     </main>
+
+    <!-- Add user modal -->
+    <div id="addUserModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddUserModal()">&times;</span>
+            <h2>Add User</h2>
+            <form action="/admin/add-user" method="POST" id="addUserForm">
+                <label for="addEmail">Email:</label>
+                <input type="email" id="addEmail" name="email" required>
+                <label for="addPassword">Password:</label>
+                <input type="password" id="addPassword" name="password" required>
+                <button type="submit" class="modal-btn">Add User</button>
+            </form>
+        </div>
+    </div>
+    <div id="editUserModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditUserModal()">&times;</span>
+            <h2>Edit User</h2>
+            <form action="/admin/edit-user" method="POST" id="editUserForm">
+                <input type="hidden" id="editUserId" name="id">
+                <label for="editEmail">Email:</label>
+                <input type="email" name="email" id="editEmail" required>
+                <label for="editPassword">Password:</label>
+                <input type="password" name="password" id="editPassword" required>
+                <button type="submit" class="modal-btn">Save Changes</button>       
+            </form>
+        </div> 
+    </div>
+
+    <script>
+        function openAddUserModal()
+        {
+            document.getElementById('addUserModal').style.display = 'flex';
+        }
+
+        function closeAddUserModal()
+        {
+            document.getElementById('addUserModal').style.display = 'none';
+        }
+
+        function openEditUserModal(id,email)
+        {
+            console.log(id,email);
+            document.getElementById('editUserModal').style.display = 'flex';
+            document.getElementById('editUserId').value = id;
+            document.getElementById('editEmail').value = email;
+        }
+
+        function closeEditUserModal()
+        {
+            document.getElementById('editUserModal').style.display = 'none';
+        }
+
+        function deleteUser(userId)
+        {
+            if(confirm("Are you sure to delete this user?"))
+            {
+                window.location.href= `/admin/delete-user/${userId}`;
+            }
+        }
+    </script>
 </body>
 </html>

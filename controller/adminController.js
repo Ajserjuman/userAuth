@@ -40,15 +40,30 @@ const loadDashboard = async (req,res) =>{
         if(!admin) return res.redirect('/admin/login');
 
         const users = await userModel.find({});
-        console.log(users);
         res.render('admin/dashboard',{users});
 
     }
     catch(error)
     {
-        res.redirect('/admin/login')
+        res.redirect('/admin/login');
     }
     
 }
 
-module.exports = {loadLogin,login,loadDashboard};
+const logout = async (req,res) =>{
+    req.session.admin = false;
+    res.redirect('/admin/login')
+}
+
+const editUser = async (req,res) =>{
+    try{
+        console.log(req.body);
+    }
+    catch(error)
+    {
+
+    }
+    
+}
+
+module.exports = {loadLogin,login,loadDashboard,logout,editUser};
